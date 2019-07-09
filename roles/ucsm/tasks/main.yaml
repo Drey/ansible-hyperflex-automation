@@ -1,0 +1,31 @@
+- name: Configure VLANs for UCSM network cloud
+  ucs_vlans:
+    hostname: "{{ ansible_host }}"
+    username: "{{ ucs_username }}"
+    password: "{{ ucs_password }}"
+    state: "{{ item.state }}"
+    name: "{{ item.name }}"
+    id: "{{ item.id }}"
+    native: 'no'
+  loop: "{{ vlans }}"
+
+- name: Adding VLANs to UCSM vNIC {{ vm_production_vnic_template }} template
+  ucs_vnic_template:
+    hostname: "{{ ansible_host }}"
+    username: "{{ ucs_username }}"
+    password: "{{ ucs_password }}"
+    description: "hx-vm vNIC template for HyperFlex"
+    name: "{{ vm_production_vnic_template }}"
+    redundancy_type: primary
+    peer_redundancy_template: vm-network-b
+    mac_pool: vm-network-a
+    qos_policy: best-effort
+    template_type: updating-template
+    network_control_policy: HyperFlex-vm
+    org_dn: "org-root/org-{{ ucsm_hyperflex_org }}"
+    vlans_list:
+    - name: "{{ item.name }}"
+      native: 'no'
+      state: "{{ item.state }}"
+  loop: "{{ vlans }}"
+  

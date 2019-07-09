@@ -1,0 +1,11 @@
+- hosts: ucsm
+  connection: local
+  gather_facts: false
+  roles:
+    - ucsm
+
+- hosts: esxi
+  connection: local
+  gather_facts: false
+  roles:
+    - esxi

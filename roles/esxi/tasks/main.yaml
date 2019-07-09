@@ -1,0 +1,12 @@
+- name: Configure VLANs on VM production vSS
+  vmware_portgroup:
+    cluster_name: "{{ vcenter_cluster_name }}"
+    hostname: "{{ ansible_host }}"
+    username: "{{ esxi_username }}"
+    password: "{{ esxi_password }}"
+    switch_name: "{{ esxi_vm_production_switchname }}"
+    portgroup_name: "{{ item.portgroup_name }}"
+    vlan_id: "{{ item.id }}"
+    validate_certs: no
+    state: "{{ item.state }}"
+  loop: "{{ vlans }}"

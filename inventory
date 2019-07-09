@@ -1,0 +1,43 @@
+#
+# VLANs are defined in group_vars/all.yaml
+#
+
+# ESXi hosts
+hx-esxi1 ansible_host=10.0.0.1
+hx-esxi2 ansible_host=10.0.0.2
+hx-esxi3 ansible_host=10.0.0.3
+
+# UCSM
+hx-ucsm ansible_host=10.1.0.1
+
+[ucsm]
+hx-ucsm
+
+[esxi]
+hx-esxi[1:3]
+
+[ucsm:vars]
+# UCSM username
+ucs_username=admin
+
+# UCSM password
+ucs_password=password
+
+# UCSM vNIC template name
+vm_production_vnic_template=vm-network-a
+
+# UCSM org name of HyperFlex cluster
+ucsm_hyperflex_org=HyperFlex
+
+[esxi:vars]
+# VMware ESXi username
+esxi_username=root
+
+# VMware ESXi password
+esxi_password=Cisco123
+
+# VMware vCenter HyperFlex cluster name
+vcenter_cluster_name=HyperFlex
+
+# VMware ESXi vm-network Virtual Standard Switch name
+esxi_vm_production_switchname=vswitch-hx-vm-network

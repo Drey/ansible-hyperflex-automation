@@ -1,0 +1,9 @@
+vlans:
+- id: 3000
+  name: VLAN3000
+  portgroup_name: vlan3000
+  state: absent
+- id: 3001
+  name: VLAN3001
+  portgroup_name: vlan3001
+  state: absent
